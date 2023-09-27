@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-center alert alert-primary">Student</h1>
+<div class="container">
+<div class="row">
+    <div class="col-sm-5">
+        <h3 class="text-center">Add Student</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+    <div class="col-sm-7">
+        {% if context %}
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Roll</th>
+                    <th>Address</th>
+                    <th>Mobile</th>
+                    <th>Action</th>
+                </tr>
+                {% for cn in context %}
+                <tr>
+                    <td>{{cn.name}}</td>
+                    <td>{{cn.roll}}</td>
+                    <td>{{cn.address}}</td>
+                    <td>{{cn.mobile}}</td>
+                    <td><a href="{% url 'edit' cn.id %}">Edit</a> | <a href="{% url 'delete' cn.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h2>No data</h2>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock content %}
